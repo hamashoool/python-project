@@ -15,32 +15,32 @@ Window.size = (300, 500)  # remove before production
 
 app = {
   "type": "service_account",
-  "project_id": "rescue-e7eb6",
-  "private_key_id": "7147cbc103bf82a150599b9a23f5df7d81e4d070",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDFtaHxB8PaLqk1\nWX3qWiX3F0gbDwT1sGK6B4V/3pbO6CTWOXHS45dIMJXHK8mwnMpC7nw0UdSrsihu\nVh6Z3O1WNTJPvlDKFmCUVIOKAkfjaJKjB+9bCrlyA3ICgDfeN2vFgbsr+Gd1Bi3P\nK3t+5/lwBxMuacWjempJucj9Bx4olyBw/jrt/Jy2y1XGKK0ZK/Bd5VI9XzQ56/9I\nXnr+ysjPxrauGcoKCfM8rc5RfigR9t0c3SC9yTZRvXOgcQTgJ2dv9RZ5lchuOF2q\nhk7nwy7dEfGAQ7AcCvt5GP1bJC55/C/uLoFT/LKoFDrj3Ok4WXWomKN8M+raiu9P\n+T4YsP8ZAgMBAAECggEAU+MYPiu8RvPraa56BZiQaUHgn1KFGTXo/eO5GiM4u7u1\n/YtMJ13Xz5KFyodiwWQVUcbcvlpGMT+bdg1mWIRr01so6LrojoZmHimp0kHbfLrf\nFPuF7IwlWSHrGvKKQegj+x5ra2Gvi/C+ORvK/3Kv3H+z/Mp2SEHlnTiN9gYyHqgZ\n+qmD9rK9jfZYJLgjctTl2or4zzGtn7QBjFx11xjKfE8tssm3tLNuVIyCzFWYWlkQ\nmtm1bWIEe8ClRH1ROr437PbEGPcb18bR31URxMBx/1O6tOmjgebGzZEFWmXMf4m9\nkRHpn7uuEOLQagQb5+7+ttstyp2onpmDWfRJlG8vTQKBgQDhTDmc3n17oV2/xh21\nbHTT2/xL0KUN476i+6hKfLY3Vzy/VnVbEj0mBfZcPXqvdUjZaD8pJd13ePUMGaqy\nis5rY8MdLDiLZ+RzsziVxu22l6ybjUcQY68vfnazbEL+n/pI7C4rNfoo8aPjSs7f\nXJLr8lc/QdLt7HOm4bo0QUYOnwKBgQDgpvWNbDmvBSuvqFdEk0ZpGZX9dydGHQJm\nzPlWp2pUM7AgVETbsNFsQyDPBsyDJ154685YAqVFuwuVK42apf//1sYX+ukaPDAW\nEBjEezXVqXru9h97/qMQywea470UqYizRSN4c2oCcsFPF8GsP5BOiP0tDBqRFbts\nOs3/lpRvRwKBgHbBiCjQ+lHdiB4bHvPPnHFEJuQLscT1hDpC7r18qUvYdxPgTfHY\nVlUhlW+flHjCGMlIcuqMpAViw8BCE0ETe6UNq/5HnfKVq8z07mG8vvadUoWX3Zqd\nAO3G+mivK00uJG6l19w9EoTcgme/ufXwxR0L28NjPfzdw0R2/YCn23a/AoGAeRfF\n+ItDtKG24KJ/F8nDBFf0T4Hwu4xbhQorxJfNasHJyENkMn9nA1JT1wQ1LOUFuWxx\n92LFr4aZQbkORTQBf+hHMxnemHOk/9+BWjeH1znZuAEXC4FAaIbn/IeRnhecRfWY\nnw6nL9aneHi3vp8srAiPX77MezQZqMcxzvld3XUCgYAaqv0ufJ9hTeD/KfIdHTQG\nF5iMGNpWCr5BOF3QK4IKPn0sVwS3BLbe0dRJlwXZr/YNyFsEjvjwVqQzuckqhMF7\nrGoxsZipqKkhfMUt4zM1qNCVg66YhMWnAHhmsCBY4gMj35cOc0PGSc7LvIKdqf1q\n2YnRENFpftpWtvzKt4V5IQ==\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-jxk79@rescue-e7eb6.iam.gserviceaccount.com",
-  "client_id": "107353584054383964563",
+  "project_id": "rescue-girls",
+  "private_key_id": "b3da2c900d27f6fb8a7426e0334db23bc499c801",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCvxpYPUPqOUihl\noaNLzfpZY0HMNMgFA+DILPEk1yqvjtjgQDmevYr+3gadr0XBauebwlXHG2DIuutb\nqgZNhuTrNYh0b7hyj4S5+JFC91lDgYz/73CX0h/7y17wj26/WKfGP5VsVuv1oJCJ\nQWOpliSyp/kdQJEvc4VqBrwPlQApCQ7iBHEmPE5VyMDP4jRdUEe1GHLxxB2maCTW\nfJkNlydcdROpG1MjrTFxtjNvZWPK5djMrirIAm5p4pV1d/aZbtT9r+mHs4BaFQy5\nMeXFHNGrV7ipaPVdUpJBqDb9kIu8oyWk+t4EL9wRNNQPNVKy4vfuT0XtM5sKFP2X\nI/bJm+BPAgMBAAECggEAOEAAMHmVHOtcwx1FYRJS7b0ORteTNMunaNe8+bGjltfL\nPoQ/DDYS33nUuyxmUb2wzY8UnSl9QO9UNxrDdpbW9hBFESHZcEvOSScq8TeviKNS\nKGsK6ILVOmI8CRaVdcVct1wMqMVuMEYISuwyhQgnyUZouXw6melJhgMOtpvTl82l\n8ynzQwZ5bvxCSpt5/u7XkLWeWg7MrQQXIRx7/nZehVSTTfKNG3FlIsZ/hFSs0aee\nYpT0dF9YMfcomW550aOSw7fLxshLOz0l3JVMhMFsBrCWPP3xvhgwdENKUvsBStz/\nwO+jGMNskCwXH1yZPnwP5qV8VaMTaMxuwv6DqvbrVQKBgQDwRxLx5np8r0/OOY1k\nUCK4QElFzd0ppETQT7fw0noNKe/OZeh5mDZh69Q2QP1secqnNoyMLC0inIw60xiP\nstnJS2i8pidrkWFo8CBIR3pwdP56ASMRfYYHqD1sQ+gml+oxpvr5EYoA1zvavEaL\nhu8fAL+jF/JJdeJ6JEfyD5UFkwKBgQC7RwgAJkqitGjt6e4ZpTSPkMWkcByBkzVj\nSzYjq12v2itG2uusWbXmFaSJwMJdhHpWIuE/k9J1D/ADp/GprkyuTRwySZzNynLe\n/wNn17sc2UExW3+M85e0hFC3w+nOYg/+9eI1M0+0jJJhkVXnK39FXhy01HgLt3z1\nvqh/xi7v1QKBgQDU6KXI48m1okK9IhI/ySJ60bwbtoc61uyDCaCcLGUqNPbhlTui\nQ1Ys/qNUT9I/xMvlz1hK/PohqUY4+cTR0FFbJQ7x2ukjT/dY3S493diIvaKgyVEh\ntnCFaHbE8IdNa1+CD8xj1z7J7+6BrEN2b2KDvk4RXq66mVLNmEiIHXaXMQKBgCLR\nGdOtSsLk930DuJhb9mGacKQZk7MjQxGqse3/tfMzhEgv+xCXvRGBhI13oKryLixF\nX8sKGF5bECwd1PfOx8K/4zYWKWi48pIyptdvbAH5Af3DHPt/bfzJfJgtfBI6eO7V\nl7B8UZ0nZS9ubaIEnCyxSnTz6z2CZ2DoiTr4BVHhAoGAAP5kCWCZwBW8KRNfqFMp\nbt9SdvnhldcFskKp+xTUuplIDC1zVH8JMgv1w/VZhhAJiaHggcmqZ4hQIxifnvLo\n26lgx1TM5hB7qR2/wEcQ4LB6w2vzg22gVVfhrVSK2laYaCacCeuqVodEDR7dG0om\nHKQzy0ckWmpiLEOOQMYWQd0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-pj0bx@rescue-girls.iam.gserviceaccount.com",
+  "client_id": "112913675773140494875",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-jxk79%40rescue-e7eb6.iam.gserviceaccount.com"
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-pj0bx%40rescue-girls.iam.gserviceaccount.com"
 }
 
 cred = credentials.Certificate(app)
 
-f.initialize_app(cred,{
-  'databaseURL': 'https://rescue-e7eb6-default-rtdb.firebaseio.com/'
+f.initialize_app(cred, {
+  'databaseURL': 'https://rescue-girls-default-rtdb.firebaseio.com/'
 })
 
 firebaseConfig = {
-    "apiKey": "AIzaSyCfmF9Htjqaru1IjLSeajeYAV4sjf-z_BA",
-    "authDomain": "rescue-e7eb6.firebaseapp.com",
-    "databaseURL": "https://rescue-e7eb6-default-rtdb.firebaseio.com",
-    "projectId": "rescue-e7eb6",
-    "storageBucket": "rescue-e7eb6.appspot.com",
-    "messagingSenderId": "658437640948",
-    "appId": "1:658437640948:web:f9fa4cda1abfb4a59d84a1",
-    "measurementId": "G-SXLSS5VNDV"
+    "apiKey": "AIzaSyA_NEfnRtKlhS5fkpNDB6qfvxU5-fmtBhQ",
+    "authDomain": "rescue-girls.firebaseapp.com",
+    "databaseURL": "https://rescue-girls-default-rtdb.firebaseio.com/",
+    "projectId": "rescue-girls",
+    "storageBucket": "rescue-girls.appspot.com",
+    "messagingSenderId": "929788672406",
+    "appId": "1:929788672406:web:2bf21fcac9d3da172545b7",
+    "measurementId": "G-T2EP7MVTHR"
 }
 
 firebase_ = pyrebase.initialize_app(firebaseConfig)
@@ -59,8 +59,8 @@ class MainApp(MDApp):
         print(f"{self.text}")
 
     def on_start(self):
-        plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
-                                  app_icon='img/1.ico', timeout=10)  # this is the notification
+        # plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
+        #                           app_icon='img/1.ico', timeout=10)  # this is the notification
         # Clock.schedule_interval(self.hello, 5) # here is where I call the function
         email = ""
         password = ""
