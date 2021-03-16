@@ -59,8 +59,8 @@ class MainApp(MDApp):
         print(f"{self.text}")
 
     def on_start(self):
-        # plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
-        #                           app_icon='img/1.ico', timeout=10)  # this is the notification
+        plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
+                                  app_icon='img/1.ico', timeout=10)  # this is the notification
         # Clock.schedule_interval(self.hello, 5) # here is where I call the function
         email = ""
         password = ""
