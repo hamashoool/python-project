@@ -1,0 +1,85 @@
+ScreenManager:
+    id: screen_manager
+
+    Screen:
+        name: "login"
+        AsyncImage:
+            source: "img//hello.png"
+            pos_hint: {"center_x": .6, "center_y": .7}
+        MDLabel:
+            text: "Welcome!"
+            size_hint: .8, None
+            pos_hint: {"center_x": .5, "center_y": .7}
+            font_size: '20sp'
+            bold: True
+
+        MDLabel:
+            text: "Enter your login information"
+            size_hint: .8, None
+            pos_hint: {"center_x": .5, "center_y": .66}
+            font_size: '10sp'
+            theme_text_color: "Custom"
+            text_color: 128/255.0, 128/255.0, 128/255.0, 1
+
+        MDTextField:
+            id: email_login
+            hint_text: "Enter Your Email"
+#            helper_text: ""
+#            helper_text_mode: "persistent"
+            size_hint: .8, None
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+        MDTextField:
+            id: password_login
+            hint_text: "Enter Your Password"
+            size_hint: .8, None
+            pos_hint: {"center_x": .5, "center_y": .4}
+
+        MDRaisedButton:
+            id: but
+            text: "Login"
+            size_hint: .8, .08
+            pos_hint: {"center_x": .5, "center_y": .25}
+            on_release: app.login()
+
+        MDRectangleFlatButton:
+            id: but
+            text: "Register"
+            size_hint: .8, .08
+            pos_hint: {"center_x": .5, "center_y": .15}
+            theme_text_color: "Custom"
+            text_color: 183/255.0, 28/255.0, 28/255.0, 1
+            line_color: 183/255.0, 28/255.0, 28/255.0, 1
+            on_release: root.current = 'registration'
+
+
+    Screen:
+        name: "registration"
+        MDLabel:
+            text: "Login Page22222"
+            size_hint: None, None
+            pos_hint: {"center_x": .5, "center_y": .5}
+        MDFlatButton:
+            id: but
+            text: "change screen"
+            theme_text_color: "Custom"
+            size_hint: None, None
+            pos_hint: {"center_x": .5, "center_y": .6}
+            text_color: app.theme_cls.primary_color
+            on_release: root.current = 's3'
+    Screen:
+        name: "s3"
+        MDToolbar:
+            id: toolbar
+            pos_hint: {"top": 1}
+            elevation: 10
+            title: "Rescue Girls"
+            left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        MDLabel:
+            id: welcome
+            text: "Hey There!"
+            size_hint: None, None
+            pos_hint: {"center_x": .5, "center_y": .1}
+
+        MDNavigationDrawer:
+            id: nav_drawer

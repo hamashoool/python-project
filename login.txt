@@ -1,0 +1,1 @@
+{"user": [{"email": "osmanjack12@gmail.com", "pass": "hamashool", "uid": "eoShICA84LYZ2WjD9qcYdayWSDc2"}]}
