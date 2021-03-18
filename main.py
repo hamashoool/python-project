@@ -50,6 +50,7 @@ auth = firebase_.auth()
 
 class MainApp(MDApp):
     dialog = None
+    dialog2 = None
     data = {}
     text = ""
 
@@ -59,8 +60,8 @@ class MainApp(MDApp):
         print(f"{self.text}")
 
     def on_start(self):
-        # plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
-        #                           app_icon='img/1.ico', timeout=10)  # this is the notification
+        plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
+                                  app_icon='img/1.ico', timeout=10)  # this is the notification
         # Clock.schedule_interval(self.hello, 5) # here is where I call the function
         email = ""
         password = ""
@@ -78,6 +79,7 @@ class MainApp(MDApp):
         else:
             user = auth.sign_in_with_email_and_password(email=email, password=password)
             self.root.current = 's3'
+            self.root.ids.welcome.text = "Welcome Back."
 
     def build(self):
         self.theme_cls.primary_palette = "Red"
@@ -88,7 +90,10 @@ class MainApp(MDApp):
     def login(self):
         email = self.root.ids.email_login.text
         password = self.root.ids.password_login.text
-        user_ = a.get_user_by_email(email)
+        try:
+            user_ = a.get_user_by_email(email)
+        except:
+            pass
         try:
             user = auth.sign_in_with_email_and_password(email=email, password=password)
             self.root.current = 's3'
@@ -107,6 +112,33 @@ class MainApp(MDApp):
                     text="Invalid email or password.",
                 )
             self.dialog.open()
+
+    def registration(self):
+        email = self.root.ids.email_reg.text
+        password = self.root.ids.password_reg.text
+        try:
+            user = auth.create_user_with_email_and_password(email=email, password=password)
+            s_user = auth.sign_in_with_email_and_password(email=email, password=password)
+            try:
+                user_ = a.get_user_by_email(email)
+            except:
+                pass
+            self.root.current = 's3'
+            self.root.ids.welcome.text = "Hey! your email is %s " % email
+            self.data['user'] = []
+            self.data['user'].append({
+                'email': email,
+                'pass': password,
+                'uid': user_.uid
+            })
+            with open('login.txt', 'w') as file:
+                json.dump(self.data, file)
+        except:
+            if not self.dialog2:
+                self.dialog2 = MDDialog(
+                    text="Invalid registration info.",
+                )
+            self.dialog2.open()
 
 
 MainApp().run()

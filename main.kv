@@ -17,15 +17,13 @@ ScreenManager:
             text: "Enter your login information"
             size_hint: .8, None
             pos_hint: {"center_x": .5, "center_y": .66}
-            font_size: '10sp'
+            font_size: '11sp'
             theme_text_color: "Custom"
             text_color: 128/255.0, 128/255.0, 128/255.0, 1
 
         MDTextField:
             id: email_login
             hint_text: "Enter Your Email"
-#            helper_text: ""
-#            helper_text_mode: "persistent"
             size_hint: .8, None
             pos_hint: {"center_x": .5, "center_y": .5}
 
@@ -55,18 +53,54 @@ ScreenManager:
 
     Screen:
         name: "registration"
+        AsyncImage:
+            source: "img//green.png"
+            pos_hint: {"center_x": .6, "center_y": .7}
         MDLabel:
-            text: "Login Page22222"
-            size_hint: None, None
-            pos_hint: {"center_x": .5, "center_y": .5}
-        MDFlatButton:
-            id: but
-            text: "change screen"
+            text: "Welcome!"
+            size_hint: .8, None
+            pos_hint: {"center_x": .5, "center_y": .7}
+            font_size: '20sp'
+            bold: True
+
+        MDLabel:
+            text: "Fill the form to register"
+            size_hint: .8, None
+            pos_hint: {"center_x": .5, "center_y": .66}
+            font_size: '12sp'
             theme_text_color: "Custom"
-            size_hint: None, None
-            pos_hint: {"center_x": .5, "center_y": .6}
-            text_color: app.theme_cls.primary_color
-            on_release: root.current = 's3'
+            text_color: 128/255.0, 128/255.0, 128/255.0, 1
+
+        MDTextField:
+            id: email_reg
+            hint_text: "Enter Your Email"
+            line_color_focus: 31/255.0, 184/255.0, 222/255.0, 1
+            size_hint: .8, None
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+        MDTextField:
+            id: password_reg
+            hint_text: "Enter Your Password"
+            line_color_focus: 31/255.0, 184/255.0, 222/255.0, 1
+            size_hint: .8, None
+            pos_hint: {"center_x": .5, "center_y": .4}
+
+        MDRaisedButton:
+            id: but
+            text: "Register"
+            md_bg_color: (31/255.0, 184/255.0, 222/255.0, 1)
+            size_hint: .8, .08
+            pos_hint: {"center_x": .5, "center_y": .25}
+            on_release: app.registration()
+        MDRectangleFlatButton:
+            id: but
+            text: "Login"
+            size_hint: .8, .08
+            pos_hint: {"center_x": .5, "center_y": .15}
+            theme_text_color: "Custom"
+            text_color: 31/255.0, 184/255.0, 222/255.0, 1
+            line_color: 31/255.0, 184/255.0, 222/255.0, 1
+            on_release: root.current = 'login'
     Screen:
         name: "s3"
         MDToolbar:
@@ -78,7 +112,7 @@ ScreenManager:
         MDLabel:
             id: welcome
             text: "Hey There!"
-            size_hint: None, None
+            size_hint: .4, None
             pos_hint: {"center_x": .5, "center_y": .1}
 
         MDNavigationDrawer:
