@@ -3,13 +3,19 @@ import os
 import plyer
 
 import firebase_admin as f
+from firebase_admin import firestore
 import pyrebase
 from firebase_admin import credentials, auth as a
 from kivy.clock import Clock
 from kivy.core.window import Window
+from kivy.uix.boxlayout import BoxLayout
 from kivymd.app import MDApp
 from kivy.lang import Builder
+from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
+from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem, ILeftBodyTouch
+from kivymd.uix.selectioncontrol import MDCheckbox
+
 
 Window.size = (300, 500)  # remove before production
 
@@ -31,6 +37,7 @@ cred = credentials.Certificate(app)
 f.initialize_app(cred, {
   'databaseURL': 'https://rescue-girls-default-rtdb.firebaseio.com/'
 })
+db = firestore.client()
 
 firebaseConfig = {
     "apiKey": "AIzaSyA_NEfnRtKlhS5fkpNDB6qfvxU5-fmtBhQ",
@@ -48,11 +55,25 @@ firebase_ = pyrebase.initialize_app(firebaseConfig)
 auth = firebase_.auth()
 
 
+class ListItemWithCheckbox(OneLineAvatarIconListItem):
+    pass
+
+
+class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
+    pass
+
+
 class MainApp(MDApp):
     dialog = None
     dialog2 = None
     data = {}
     text = ""
+
+    def build(self):
+        self.theme_cls.primary_palette = "Red"
+        self.theme_cls.primary_hue = "700"
+        self.theme_cls.theme_style = "Light"
+        return Builder.load_file('main.kv')
 
     # this is the function that will check the database automatically every 10 seconds.
     def hello(self, *args):
@@ -60,8 +81,8 @@ class MainApp(MDApp):
         print(f"{self.text}")
 
     def on_start(self):
-        plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
-                                  app_icon='img/1.ico', timeout=10)  # this is the notification
+        # plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
+        #                           app_icon='img/1.ico', timeout=10)  # this is the notification
         # Clock.schedule_interval(self.hello, 5) # here is where I call the function
         email = ""
         password = ""
@@ -79,13 +100,6 @@ class MainApp(MDApp):
         else:
             user = auth.sign_in_with_email_and_password(email=email, password=password)
             self.root.current = 's3'
-            self.root.ids.welcome.text = "Welcome Back."
-
-    def build(self):
-        self.theme_cls.primary_palette = "Red"
-        self.theme_cls.primary_hue = "700"
-        self.theme_cls.theme_style = "Light"
-        return Builder.load_file('main.kv')
 
     def login(self):
         email = self.root.ids.email_login.text
@@ -106,6 +120,9 @@ class MainApp(MDApp):
             })
             with open('login.txt', 'w') as file:
                 json.dump(self.data, file)
+            self.root.ids.email_login.text = ""
+            self.root.ids.password_login.text = ""
+
         except:
             if not self.dialog:
                 self.dialog = MDDialog(
@@ -116,6 +133,7 @@ class MainApp(MDApp):
     def registration(self):
         email = self.root.ids.email_reg.text
         password = self.root.ids.password_reg.text
+        name = self.root.ids.name_reg.text
         try:
             user = auth.create_user_with_email_and_password(email=email, password=password)
             s_user = auth.sign_in_with_email_and_password(email=email, password=password)
@@ -124,6 +142,20 @@ class MainApp(MDApp):
             except:
                 pass
             self.root.current = 's3'
+            person = ""
+            if self.root.ids.female_check.active:
+                person = "Female"
+            elif self.root.ids.savior_check.active:
+                person = "Savior"
+            user_ref = db.collection('Users')
+            user_ref.document(user_.email).set({
+                'name': name,
+                'email': email,
+                'password': password,
+                'id': user_.uid,
+                'user_type': person
+
+            })
             self.root.ids.welcome.text = "Hey! your email is %s " % email
             self.data['user'] = []
             self.data['user'].append({
@@ -133,6 +165,9 @@ class MainApp(MDApp):
             })
             with open('login.txt', 'w') as file:
                 json.dump(self.data, file)
+            self.root.ids.email_reg.text = ""
+            self.root.ids.password_reg.text = ""
+            self.root.ids.name_reg.text = ""
         except:
             if not self.dialog2:
                 self.dialog2 = MDDialog(
@@ -140,5 +175,10 @@ class MainApp(MDApp):
                 )
             self.dialog2.open()
 
+    def logout(self):
+        os.remove("login.txt")
+        self.root.current = 'login'
 
+    # def printt(self):
+    #     print(self.root.ids.sscreens.current)
 MainApp().run()

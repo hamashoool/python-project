@@ -55,65 +55,130 @@ ScreenManager:
         name: "registration"
         AsyncImage:
             source: "img//green.png"
-            pos_hint: {"center_x": .6, "center_y": .7}
+            pos_hint: {"center_x": .7, "center_y": .85}
+            size_hint: .5, .5
         MDLabel:
             text: "Welcome!"
             size_hint: .8, None
-            pos_hint: {"center_x": .5, "center_y": .7}
+            pos_hint: {"center_x": .5, "center_y": .85}
             font_size: '20sp'
             bold: True
 
         MDLabel:
             text: "Fill the form to register"
             size_hint: .8, None
-            pos_hint: {"center_x": .5, "center_y": .66}
+            pos_hint: {"center_x": .5, "center_y": .81}
             font_size: '12sp'
             theme_text_color: "Custom"
             text_color: 128/255.0, 128/255.0, 128/255.0, 1
+
+        MDTextField:
+            id: name_reg
+            hint_text: "Enter Your Full Name"
+            line_color_focus: 31/255.0, 184/255.0, 222/255.0, 1
+            size_hint: .8, None
+            pos_hint: {"center_x": .5, "center_y": .65}
 
         MDTextField:
             id: email_reg
             hint_text: "Enter Your Email"
             line_color_focus: 31/255.0, 184/255.0, 222/255.0, 1
             size_hint: .8, None
-            pos_hint: {"center_x": .5, "center_y": .5}
+            pos_hint: {"center_x": .5, "center_y": .55}
 
         MDTextField:
             id: password_reg
             hint_text: "Enter Your Password"
             line_color_focus: 31/255.0, 184/255.0, 222/255.0, 1
             size_hint: .8, None
-            pos_hint: {"center_x": .5, "center_y": .4}
+            pos_hint: {"center_x": .5, "center_y": .45}
+
+        ListItemWithCheckbox:
+            text: "Female"
+            size_hint: .8, .1
+            pos_hint: {"center_x": .5, "center_y": .35}
+
+            LeftCheckbox:
+                id: female_check
+                group: 'group'
+
+        ListItemWithCheckbox:
+            text: "Savior"
+            size_hint: .8, .1
+            pos_hint: {"center_x": .5, "center_y": .25}
+
+            LeftCheckbox:
+                id: savior_check
+                group: 'group'
 
         MDRaisedButton:
             id: but
             text: "Register"
             md_bg_color: (31/255.0, 184/255.0, 222/255.0, 1)
             size_hint: .8, .08
-            pos_hint: {"center_x": .5, "center_y": .25}
+            pos_hint: {"center_x": .5, "center_y": .15}
             on_release: app.registration()
         MDRectangleFlatButton:
             id: but
             text: "Login"
             size_hint: .8, .08
-            pos_hint: {"center_x": .5, "center_y": .15}
+            pos_hint: {"center_x": .5, "center_y": .06}
             theme_text_color: "Custom"
             text_color: 31/255.0, 184/255.0, 222/255.0, 1
             line_color: 31/255.0, 184/255.0, 222/255.0, 1
             on_release: root.current = 'login'
     Screen:
         name: "s3"
-        MDToolbar:
-            id: toolbar
-            pos_hint: {"top": 1}
-            elevation: 10
-            title: "Rescue Girls"
-            left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
-        MDLabel:
-            id: welcome
-            text: "Hey There!"
-            size_hint: .4, None
-            pos_hint: {"center_x": .5, "center_y": .1}
+        MDNavigationLayout:
 
-        MDNavigationDrawer:
-            id: nav_drawer
+            ScreenManager:
+                id: sscreens
+                Screen:
+                    name: 'shome'
+
+                        #right_action_items: [["magnify", lambda x: app.show_search_popup()]]
+                    MDLabel:
+                        id: welcome
+                        text: "Hey There!"
+                        size_hint: .4, None
+                        pos_hint: {"center_x": .5, "center_y": .1}
+                Screen:
+                    name: 'addSavior'
+
+                    MDLabel:
+                        text: 'hey'
+            MDToolbar:
+                id: toolbar
+                pos_hint: {"top": 1}
+                elevation: 10
+                title: "Rescue Girls"
+                left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+            MDNavigationDrawer:
+                id: nav_drawer
+                orientation: 'vertical'
+                spacing: '8dp'
+                padding: '8dp'
+
+                ScrollView:
+                    MDList:
+                        OneLineIconListItem:
+                            text: 'Home'
+                            on_release:
+                                root.ids.sscreens.current = 'shome'
+                                nav_drawer.set_state('close')
+                            IconLeftWidget:
+                                icon: 'home'
+                        OneLineIconListItem:
+                            text: 'Add Savior'
+                            on_release:
+                                root.ids.sscreens.current = 'addSavior'
+                                nav_drawer.set_state('close')
+                            IconLeftWidget:
+                                icon: 'account-plus'
+
+                OneLineIconListItem:
+                    text: 'Logout'
+                    on_release: app.logout()
+                    IconLeftWidget:
+                        icon: 'logout'
