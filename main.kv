@@ -145,8 +145,34 @@ ScreenManager:
                 Screen:
                     name: 'addSavior'
 
-                    MDLabel:
-                        text: 'hey'
+                    MDIconButton:
+                        id: savior_search_button
+                        icon: "magnify"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.primary_color
+                        pos_hint: {"center_x": .1, "center_y": .8}
+                        on_release: app.search_savior(search=True)
+
+                    MDTextField:
+                        id: savior_search
+                        hint_text: "Enter Email"
+                        size_hint: .65, None
+                        pos_hint: {"center_x": .55, "center_y": .8}
+                    ScrollView:
+                        size_hint: (0.85, 0.75)
+                        pos_hint: {'center_x': .5, 'y': .01}
+
+                        MDList:
+                            id: search_result_list
+#                            TwoLineIconListItem:
+#                                id: savior_result_name
+#                                text: "Two-line item with avatar"
+#                                secondary_text: "Secondary text here"
+#                                pos_hint: {"center_x": .1, "center_y": .7}
+#
+#                                IconLeftWidget:
+#                                    icon: "account-plus"
+
             MDToolbar:
                 id: toolbar
                 pos_hint: {"top": 1}
