@@ -1,1 +1,1 @@
-{"user": [{"email": "", "pass": "56", "uid": "jTWSLsm49FbbTT5fA0cNDg2nczc2"}]}
+{"user": [{"email": "osmanjack12@gmail.com", "pass": "hamashool", "uid": "twgSJJN7IpVImuMCOvQNz6zOpvx2", "name": "Osman Abdiresaq Osman", "user_type": "Savior"}]}

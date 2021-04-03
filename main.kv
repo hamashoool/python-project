@@ -136,12 +136,14 @@ ScreenManager:
                 Screen:
                     name: 'shome'
 
-                        #right_action_items: [["magnify", lambda x: app.show_search_popup()]]
-                    MDLabel:
-                        id: welcome
-                        text: "Hey There!"
-                        size_hint: .4, None
-                        pos_hint: {"center_x": .5, "center_y": .1}
+                    MDIconButton:
+                        icon: "alert-decagram-outline"
+                        user_font_size: "154sp"
+                        md_bg_color: app.theme_cls.primary_color
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        on_release: app.rescue_me()
                 Screen:
                     name: 'addSavior'
 
@@ -164,14 +166,11 @@ ScreenManager:
 
                         MDList:
                             id: search_result_list
-#                            TwoLineIconListItem:
-#                                id: savior_result_name
-#                                text: "Two-line item with avatar"
-#                                secondary_text: "Secondary text here"
-#                                pos_hint: {"center_x": .1, "center_y": .7}
-#
-#                                IconLeftWidget:
-#                                    icon: "account-plus"
+                    MDFloatingActionButton:
+                        icon: "delete-empty-outline"
+                        md_bg_color: app.theme_cls.primary_color
+                        pos_hint: {'center_x': .85, 'y': .0351}
+                        on_release: app.clear_list()
 
             MDToolbar:
                 id: toolbar
@@ -185,6 +184,20 @@ ScreenManager:
                 orientation: 'vertical'
                 spacing: '8dp'
                 padding: '8dp'
+
+                MDLabel:
+                    id: person_name
+                    text: "KivyMD library"
+                    font_style: "Button"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                MDLabel:
+                    id: person_email
+                    text: "kivydevelopment@gmail.com"
+                    font_style: "Caption"
+                    size_hint_y: None
+                    height: self.texture_size[1]
 
                 ScrollView:
                     MDList:
@@ -208,3 +221,97 @@ ScreenManager:
                     on_release: app.logout()
                     IconLeftWidget:
                         icon: 'logout'
+    Screen:
+        name: "s4"
+        MDNavigationLayout:
+
+            ScreenManager:
+                id: sscreenss
+                Screen:
+                    name: 'sshome'
+
+                    MDLabel:
+                        text: 'Hey Savior'
+                        pos_hint: {"center_x": .5, "center_y": .8}
+                        size_hint: None, None
+                        theme_text_color: "Custom"
+                        text_color: 0, 0, 1, 1
+
+                Screen:
+                    name: 'salerts'
+
+                    MDLabel:
+                        text: 'Alerts Page'
+                        pos_hint: {"center_x": .5, "center_y": .8}
+                        size_hint: None, None
+                        theme_text_color: "Custom"
+                        text_color: 0, 0, 1, 1
+                    ScrollView:
+                        size_hint: (0.85, 0.75)
+                        pos_hint: {'center_x': .5, 'y': .01}
+
+                        MDList:
+                            id: savior_alerts_list
+
+            MDToolbar:
+                id: toolbar2
+                pos_hint: {"top": 1}
+                elevation: 10
+                title: "Rescue Girls"
+                left_action_items: [["menu", lambda x: nav_drawer_two.set_state("open")]]
+                md_bg_color: 0,208/255.0,1,1
+
+            MDNavigationDrawer:
+                id: nav_drawer_two
+                orientation: 'vertical'
+                spacing: '8dp'
+                padding: '8dp'
+
+                MDLabel:
+                    id: person_name_1
+                    text: "KivyMD library"
+                    font_style: "Button"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    theme_text_color: "Custom"
+                    text_color: 0,208/255.0,1,1
+
+                MDLabel:
+                    id: person_email_1
+                    text: "kivydevelopment@gmail.com"
+                    font_style: "Caption"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    theme_text_color: "Custom"
+                    text_color: 0,208/255.0,1,1
+
+                ScrollView:
+                    MDList:
+                        OneLineIconListItem:
+                            md_bg_color: 0,208/255.0,1,1
+                            text: 'Home'
+                            on_release:
+                                root.ids.sscreenss.current = 'sshome'
+                                nav_drawer_two.set_state('close')
+                            IconLeftWidget:
+                                icon: 'home'
+                                theme_text_color: "Custom"
+                                text_color: 0,208/255.0,1,1
+                        OneLineIconListItem:
+                            md_bg_color: 0,208/255.0,1,1
+                            text: 'Alerts'
+                            on_release:
+                                root.ids.sscreenss.current = 'salerts'
+                                nav_drawer_two.set_state('close')
+                            IconLeftWidget:
+                                icon: 'alert'
+                                theme_text_color: "Custom"
+                                text_color: 0,208/255.0,1,1
+
+                OneLineIconListItem:
+                    text: 'Logout'
+                    on_release: app.logout()
+                    IconLeftWidget:
+                        icon: 'logout'
+                        theme_text_color: "Custom"
+                        text_color: 0,208/255.0,1,1
