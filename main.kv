@@ -246,12 +246,20 @@ ScreenManager:
                         size_hint: None, None
                         theme_text_color: "Custom"
                         text_color: 0, 0, 1, 1
+
+
                     ScrollView:
                         size_hint: (0.85, 0.75)
                         pos_hint: {'center_x': .5, 'y': .01}
 
                         MDList:
                             id: savior_alerts_list
+
+                    MDFloatingActionButton:
+                        icon: "refresh"
+                        md_bg_color: 0,208/255.0,1,1
+                        pos_hint: {'center_x': .85, 'y': .0351}
+                        on_release: app.savior_alert_refresh()
 
             MDToolbar:
                 id: toolbar2
