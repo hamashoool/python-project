@@ -1,5 +1,7 @@
+import datetime
 import json
 import os
+import threading
 
 import geocoder as geocoder
 import plyer
@@ -90,9 +92,6 @@ class RescueGirlsApp(MDApp):
         print(f"{self.text}")
 
     def on_start(self):
-        # plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
-        #                           app_icon='img/1.ico', timeout=10)  # this is the notification
-        # Clock.schedule_interval(self.hello, 5) # here is where I call the function
 
         # Check login.txt file if it exist if it exist use the recorded info and login
         email = ""
@@ -111,6 +110,7 @@ class RescueGirlsApp(MDApp):
         else:
             user = auth.sign_in_with_email_and_password(email=email, password=password)
             result = db.collection('Users').document(email).get()
+
             if result.to_dict()['user_type'] == 'Female':
                 self.root.ids.person_name.text = result.to_dict()['name']
                 self.root.ids.person_email.text = email
@@ -120,7 +120,9 @@ class RescueGirlsApp(MDApp):
                 self.root.ids.person_email_1.text = email
                 self.root.current = 's4'
 
-                alerts = db.collection('Users').document(email).collection('Alerts').get()
+                # getting alerts of the savior
+                alerts = db.collection('Users').document(email).collection('Alerts').order_by(u'date_time',
+                                                                                              direction=firestore.Query.DESCENDING).get()
                 for alert in alerts:
                     lat = alert.to_dict()['latitude']
                     long = alert.to_dict()['longitude']
@@ -133,6 +135,31 @@ class RescueGirlsApp(MDApp):
                                                       pos_hint={"center_x": .1, "center_y": .7})
                     alert_items.add_widget(alert_icon)
                     alert_list_view.add_widget(alert_items)
+
+                # Create an Event for notifying main thread.
+                callback_done = threading.Event()
+
+                # Create a callback on_snapshot function to capture changes
+                def on_snapshot(doc_snapshot, changes, read_time):
+                    current_alerts = []
+                    for doc in doc_snapshot:
+                        current_alerts.append(doc)
+                    last_one = current_alerts[-1]
+                    name = last_one.to_dict()['name']
+
+                    # send the notification
+                    plyer.notification.notify(title=f'Rescue {name}', message=f"{name} is in danger. Open the app "
+                                                                              f"and check alerts.",
+                                              app_name='Rescue Girls',
+                                              app_icon='img/1.ico', timeout=10)  # this is the notification
+                    self.savior_alert_refresh()
+                    callback_done.set()
+
+                doc_ref = db.collection('Users').document(email).collection('Alerts').order_by(u'date_time',
+                                                                                               direction=firestore.Query.DESCENDING)
+
+                # Watch the collection
+                doc_watch = doc_ref.on_snapshot(on_snapshot)
 
     def login(self):
         email = self.root.ids.email_login.text
@@ -198,7 +225,6 @@ class RescueGirlsApp(MDApp):
                     user_ = a.get_user_by_email(email)
                 except:
                     pass
-
 
                 person = ""
 
@@ -365,11 +391,58 @@ class RescueGirlsApp(MDApp):
 
             # send her location, name and time to each of them
             for savior in saviors:
-                self.user_ref.document(savior.to_dict()['email']).collection('Alerts').document(user_email).set({
+                data = {
+                    'email': user_email,
                     'name': user_name,
                     'latitude': latitude,
-                    'longitude': longitude
-                })
+                    'longitude': longitude,
+                    'date_time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                }
+                self.user_ref.document(savior.to_dict()['email']).collection('Alerts').add(data)
+
+    def savior_alert_refresh(self):
+
+        # get the logged in user info
+        email = ""
+        password = ""
+        if os.path.isfile('login.txt'):
+            with open('login.txt') as json_file:
+                data = json.load(json_file)
+                for p in data['user']:
+                    if p['email'] == "" or p['pass'] == "":
+                        pass
+                    else:
+                        email = p['email']
+                        password = p['pass']
+        if email == "" or password == "":
+            pass
+        else:
+            # clear previous alert list
+            items = self.root.ids.savior_alerts_list
+            list_item = self.root.ids.savior_alerts_list.children
+            while list_item:
+                for itm in list_item:
+                    items.remove_widget(itm)
+
+            # get the new alert list
+            alerts = db.collection('Users').document(email).collection('Alerts').order_by(u'date_time',
+                                                                                          direction=firestore.Query.DESCENDING).get()
+            for alert in alerts:
+                lat = alert.to_dict()['latitude']
+                long = alert.to_dict()['longitude']
+                date_time = alert.to_dict()['date_time']
+                alert_list_view = self.root.ids.savior_alerts_list
+                alert_icon = IconLeftWidget(icon="alert",
+                                            theme_text_color="Custom",
+                                            text_color=(0, 208 / 255.0, 1, 1))
+                alert_items = TwoLineIconListItem(text=alert.to_dict()['name'],
+                                                  secondary_text=f'{date_time}',
+                                                  pos_hint={"center_x": .1, "center_y": .7})
+                alert_items.add_widget(alert_icon)
+                alert_list_view.add_widget(alert_items)
+
+    def alert_listener(self):
+        print('Alert')
 
     def printt(self, *args):
         print('Added')
