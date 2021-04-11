@@ -12,9 +12,12 @@ import pyrebase
 from firebase_admin import credentials, auth as a
 from kivy.clock import Clock
 from kivy.core.window import Window
+from kivy.garden.mapview import MapMarker, MapMarkerPopup
 from kivy.metrics import dp
+from kivy.uix.boxlayout import BoxLayout
 from kivymd.app import MDApp
 from kivy.lang import Builder
+from kivymd.uix.button import MDFlatButton
 from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.list import OneLineAvatarIconListItem, ILeftBodyTouch, TwoLineIconListItem, \
@@ -67,6 +70,15 @@ class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
     pass
 
 
+class Content(BoxLayout):
+    def __init__(self, lat, lon, **kwargs):
+        super(Content, self).__init__(**kwargs)
+        self.ids.mapvieww.center_on(lat, lon)
+        m = MapMarker(lon=lon, lat=lat, source='img/map1.png')
+        self.ids.mapvieww.add_marker(m)
+        print(m)
+
+
 class RescueGirlsApp(MDApp):
     user_ref = db.collection('Users')
     dialog = None
@@ -76,6 +88,7 @@ class RescueGirlsApp(MDApp):
     not_savior = None
     saviors_full = None
     reg_name_check = None
+    mapdialog = None
     data = {}
     text = ""
     previous_search = []
@@ -92,9 +105,6 @@ class RescueGirlsApp(MDApp):
         print(f"{self.text}")
 
     def on_start(self):
-        # plyer.notification.notify(title='Tusaale', message="Notification using plyer", app_name='Rescue Girls',
-        #                           app_icon='img/1.ico', timeout=10)  # this is the notification
-        # Clock.schedule_interval(self.hello, 5) # here is where I call the function
 
         # Check login.txt file if it exist if it exist use the recorded info and login
         email = ""
@@ -134,6 +144,7 @@ class RescueGirlsApp(MDApp):
                                                 theme_text_color="Custom",
                                                 text_color=(0, 208 / 255.0, 1, 1))
                     alert_items = TwoLineIconListItem(text=alert.to_dict()['name'],
+                                                      on_release=lambda x:self.show_map_dialog(la=lat, lo=long),
                                                       secondary_text=f'{lat} , {long}',
                                                       pos_hint={"center_x": .1, "center_y": .7})
                     alert_items.add_widget(alert_icon)
@@ -146,19 +157,22 @@ class RescueGirlsApp(MDApp):
                 def on_snapshot(doc_snapshot, changes, read_time):
                     current_alerts = []
                     for doc in doc_snapshot:
-                        current_alerts.append(doc.id)
+                        current_alerts.append(doc)
                     last_one = current_alerts[-1]
-                    plyer.notification.notify(title='Rescue Girl', message="Notification using plyer",
+                    name = last_one.to_dict()['name']
+
+                    # send the notification
+                    plyer.notification.notify(title=f'Rescue {name}', message=f"{name} is in danger. Open the app "
+                                                                              f"and check alerts.",
                                               app_name='Rescue Girls',
                                               app_icon='img/1.ico', timeout=10)  # this is the notification
                     self.savior_alert_refresh()
-                    print(f'{last_one}')
                     callback_done.set()
 
                 doc_ref = db.collection('Users').document(email).collection('Alerts').order_by(u'date_time',
                                                                                                direction=firestore.Query.DESCENDING)
 
-                # Watch the document
+                # Watch the collection
                 doc_watch = doc_ref.on_snapshot(on_snapshot)
 
     def login(self):
@@ -436,16 +450,25 @@ class RescueGirlsApp(MDApp):
                                             theme_text_color="Custom",
                                             text_color=(0, 208 / 255.0, 1, 1))
                 alert_items = TwoLineIconListItem(text=alert.to_dict()['name'],
+                                                  on_release=lambda x:self.show_map_dialog(la=lat, lo=long),
                                                   secondary_text=f'{date_time}',
                                                   pos_hint={"center_x": .1, "center_y": .7})
                 alert_items.add_widget(alert_icon)
                 alert_list_view.add_widget(alert_items)
 
-    def alert_listener(self):
-        print('Alert')
+    def show_map_dialog(self, la, lo, *args):
+        if not self.mapdialog:
+            self.mapdialog = MDDialog(
+                title="Her Location:",
+                type="custom",
+                content_cls=Content(la, lo),
+            )
+        self.mapdialog.open()
 
-    def printt(self, *args):
-        print('Added')
+        # print(mapview.lat)
+
+    def printt(self,l, o, *args):
+        print(l,o)
 
 
 RescueGirlsApp().run()

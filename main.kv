@@ -1,3 +1,14 @@
+#: import MapView kivy.garden.mapview.MapView
+#: import MapMarker kivy.garden.mapview.MapMarker
+<Content>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "320dp"
+
+    MapView:
+        id: mapvieww
+        zoom: 13
 ScreenManager:
     id: screen_manager
 
@@ -236,6 +247,13 @@ ScreenManager:
                         size_hint: None, None
                         theme_text_color: "Custom"
                         text_color: 0, 0, 1, 1
+
+                Screen:
+                    name: 'smap'
+
+                    MapView:
+                        id: mapvieww
+                        zoom: 13
 
                 Screen:
                     name: 'salerts'
